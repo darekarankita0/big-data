@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               sh 'pip3 install --user pipenv'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv install'
+                git branch: 'main', url: 'https://github.com/darekarankita0/big-data.git'
+                sh 'python3 jenkinstest.py'
+
             }
         }
 
