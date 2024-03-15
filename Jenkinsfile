@@ -6,6 +6,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/darekarankita0/big-data.git'
                 sh 'python3 jenkinstest.py'
+
             }
         }
 
