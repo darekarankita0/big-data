@@ -4,9 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               sh 'pip3 install --user pipenv'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0'
-               sh '/bitnami/jenkins/home/.local/bin/pipenv install'
+                git branch: 'main', url: 'https://github.com/vastevenson/pytest-intro-vs.git'
+                sh 'python3 build.py'
             }
         }
 
