@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+		echo 'py code'
                 sh '/bitnami/jenkins/home/.local/bin.pipenv run build.py'
 
             }
