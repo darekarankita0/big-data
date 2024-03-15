@@ -1,31 +1,27 @@
 pipeline {
     agent any
-    stages {
-        stage('Build Application') {
-            steps {
-                sh 'mvn -f java-tomcat-sample/pom.xml clean package'
-            }
-            post {
-                success {
-                    echo "Now Archiving the Artifacts...."
-                    archiveArtifacts artifacts: '**/*.war'
-                }
-            }
-        }
-        stage('Deploy in Staging Environment'){
-            steps{
-                build job: 'Deploy_Application_Staging_Env'
 
-            }
-            
-        }
-        stage('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-                build job: 'Deploy_Application_Prod_Env'
+    stages {
+        stage('Build') {
+            steps {
+               sh 'pip3 install --user pipenv'
+               sh '/bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0'
+               sh '/bitnami/jenkins/home/.local/bin/pipenv install'
             }
         }
+
+
+         stage('Package') {
+            steps {
+               sh 'zip -r jenkinsproj.zip .'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+               echo 'deploy'
+            }
+        }
+	
     }
 }
