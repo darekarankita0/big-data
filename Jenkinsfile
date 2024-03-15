@@ -1,26 +1,27 @@
 pipeline {
-      agent any
-      stages {
-            stage('Init') {
-                  steps {
-                        echo 'Hi, this is Anshul from LevelUp360'
-                        echo 'We are Starting the Testing'
-                  }
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+               sh 'pip3 install --user pipenv'
+               sh '/bitnami/jenkins/home/.local/bin/pipenv --rm || exit 0'
+               sh '/bitnami/jenkins/home/.local/bin/pipenv install'
             }
-            stage('Build') {
-                  steps {
-                        echo 'Building Sample Maven Project'
-                  }
+        }
+
+
+         stage('Package') {
+            steps {
+               sh 'zip -r jenkinsproj.zip .'
             }
-            stage('Deploy') {
-                  steps {
-                        echo "Deploying in Staging Area"
-                  }
+        }
+        
+        stage('Deploy') {
+            steps {
+               echo 'deploy'
             }
-            stage('Deploy Production') {
-                  steps {
-                        echo "Deploying in Production Area"
-                  }
-            }
-      }
+        }
+	
+    }
 }
