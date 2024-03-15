@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        LABS = credentials('labcreds')
-    }
-
     stages {
         stage('Build') {
             steps {
