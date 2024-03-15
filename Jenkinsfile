@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+
+	stage('Install dependencies') {
+            steps {
+		echo 'install requirements.txt'
+
+            }
+        }
         stage('Build') {
             steps {
 		echo 'py code'
